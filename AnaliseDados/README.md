@@ -39,7 +39,6 @@ A análise foi implementada em um **script Python único**, conforme solicitado 
 
 - **SparkSession**
   - Criada explicitamente para o job analítico
-  - Execução via `spark-submit`
 
 - **Schema explícito**
   - Evita inferência incorreta de tipos
