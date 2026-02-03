@@ -12,3 +12,5 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+__pycache__
+.pytest_cache
