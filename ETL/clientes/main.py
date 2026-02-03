@@ -58,11 +58,9 @@ class Config():
         #### Necessário incluir como 's3a' pois utiliza S3AFileSystem do Hadoop; Caso contrario, cria e mantem arquivos poluídos no S3
         #############
         self.input_path = "s3://bucket-input-prod/clientes_sinteticos.csv" if self.env == "prod" else "file:///mnt/notebooks/clientes_sinteticos.csv"
-        self.bronze_bucket_s3 = "s3a://bucket-bronze-prod/tabela_cliente_landing" if self.env == "prod" else "s3a://bucket-bronze-lauraxiz/tabela_cliente_landing"
-        self.silver_bucket_s3 = "s3a://bucket-silver-prod/tb_cliente" if self.env == "prod" else "s3a://bucket-silver-lauraxiz/tb_cliente"
+        self.bronze_bucket_s3 = "s3a://bucket-bronze-prod/tabela_cliente_landing" if self.env == "prod" else "s3a://bucket-bronze/tabela_cliente_landing"
+        self.silver_bucket_s3 = "s3a://bucket-silver-prod/tb_cliente" if self.env == "prod" else "s3a://bucket-silver/tb_cliente"
 
-        #self.bronze_bucket_s3 = "s3a://bucket-bronze-prod/tabela_cliente_landing" if self.env == "prod" else "s3a://bucket-bronze/tabela_cliente_landing"
-        #self.silver_bucket_s3 = "s3a://bucket-silver-prod/tb_cliente" if self.env == "prod" else "s3a://bucket-silver/tb_cliente"
 
         ######### Melhorias futura #########
         #self.args = get_args()
@@ -72,7 +70,6 @@ class Config():
 
 ## Arquivo libs.util.connection.py
 class Connection():
-    #def __init__(self, config: Type[Config]) -> None:
     def __init__(self, config: Config) -> None:
         self.logger = set_logger(__name__)
         self.config = config
@@ -134,7 +131,6 @@ class Connection():
 
 ## Arquivo libs.util.transformation.py
 class Transformation():
-    #def __init__(self, config: Type[Config], connection: Type[Connection]) -> None:
     def __init__(self, config: Config, connection: Connection) -> None:
         self.logger = set_logger(__name__)
         self.config = config
@@ -305,7 +301,7 @@ class Transformation():
         return df
 
 
-## Classes instantiation
+## Classes instanciadas
 config = Config()
 conn = Connection(config)
 transformation = Transformation(config, conn)
