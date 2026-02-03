@@ -1,7 +1,13 @@
+import sys
 import logging
 from pyspark.sql import SparkSession, DataFrame, Window
 from pyspark.sql.functions import count, current_date, year, avg, to_date
 from pyspark.sql.types import StructType, StructField, StringType
+from awsglue.utils import getResolvedOptions
+
+args = getResolvedOptions(sys.argv, ['INPUT_PATH'])
+input_path = args['INPUT_PATH']
+
 
 ENV = "stag"
 
@@ -44,7 +50,8 @@ def read_csv(spark: SparkSession) -> DataFrame:
         spark.read
         .schema(get_bronze_schema())
         .option("header", "true")
-        .csv("file:///mnt/notebooks/clientes_sinteticos.csv")
+        #.csv("file:///mnt/notebooks/clientes_sinteticos.csv") # Utilizado somente para testes locais
+        .csv(input_path)
     )
     logger.info("[DEBUG] - leitura finalizada")
     return df
